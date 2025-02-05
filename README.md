@@ -2,7 +2,7 @@
 
 ##[Google MEETS](https://teams.live.com/meet/943102024944?p=Oadmco32M0MkIcrC8V)
 
-##[Google Sheets](https://docs.google.com/spreadsheets/d/1VcHb2Xw1809E36XLDc6lDTHB1Zx_kc1d/edit?usp=sharing&ouid=114881218125983471022&rtpof=true&sd=true)
+##[Google Sheets](https://docs.google.com/spreadsheets/d/1iawxzK2c04OQdwWXcxDXgJc15bcNEhC-D_0qda5QlMo/edit?usp=sharing)
 
 ## Course Description
 
