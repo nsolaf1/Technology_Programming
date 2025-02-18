@@ -43,11 +43,30 @@
 
 
 
+# x = 1
+# while x < 100:
+#     if x % 2 != 0:
+#         print(x)
+#     # x += 1
+#     x = x + 1
 
-for i in range(1, 11):
-    for j in range(1, i + 1):
-        print(j, end="" )
-    print()
+# numbers = [10,20,30]
+# names = ["Akcholpon", "Nurjan", "Mahmud"]
+
+# for num in numbers:
+#     print(num * 10)
+
+        
+score = [ 85, 72, 90, 68, 47, 95, 80, 77, 55, 89]
+# print(number)
+score.append(101)
+print(score)
+
+
+
+
+# for xa11s in range(1, 100):
+#     print(xa11s)
 
 
 
