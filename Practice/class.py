@@ -4,8 +4,8 @@ class Character:
         self.damage = damage
         self.speed = speed
 
-    def __str__(self):
-        return f'{self.health} {self.damage} {self.speed}'
+    # def __str__(self):
+    #     return f'{self.health} {self.damage} {self.speed}'
 
     def double_speed(self):
         self.speed *= 2
