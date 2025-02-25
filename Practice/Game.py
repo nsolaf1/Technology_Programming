@@ -130,3 +130,5 @@ class TicTacToe:
 
 
 TicTacToe()
+
+def outer(x): def inner(y): return y * 2; for i in range(3): x = inner(x); return x; print(outer(5))?
