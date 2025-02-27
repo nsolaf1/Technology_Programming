@@ -12,9 +12,13 @@
 
 
 
-# fruits = ["apple", "banana", "cherry"]
+# fruits = [1,2,3]
 # for x in fruits:
 #   print(x)
+
+# 1 2 3
+
+# print(fruits)
 
 # for x in "banana":
 #   print(x )
@@ -57,10 +61,10 @@
 #     print(num * 10)
 
         
-score = [ 85, 72, 90, 68, 47, 95, 80, 77, 55, 89]
-# print(number)
-score.append(101)
-print(score)
+# score = [ 85, 72, 90, 68, 47, 95, 80, 77, 55, 89]
+# # print(number)
+# score.append(101)
+# print(score)
 
 
 
