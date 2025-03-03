@@ -24,3 +24,11 @@ txt = "We are the so-called \"Vikings\" from the north."
 print(txt)
 
 
+
+def swap(a, b): 
+    a, b = b, a
+    return a
+
+x = 2
+y = 3 
+print(swap(x, y), x)
