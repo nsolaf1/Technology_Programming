@@ -1,7 +1,7 @@
 import tkinter as tk
-import ast
 
-class Calculator:
+
+class Calculator():
     def __init__(self, root):
         self.root = root
         self.root.title("Simple Calculator")
@@ -39,7 +39,7 @@ class Calculator:
 
     def calculate(self):
         try:
-            result = str(ast.literal_eval(self.expression))  # Safer than eval()
+            result = str(eval(self.expression))  # Safer than eval()
             self.equation.set(result)
             self.expression = result  # Store the result for further calculations
         except Exception:
