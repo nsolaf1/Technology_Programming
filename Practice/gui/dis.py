@@ -1,72 +1,210 @@
 import tkinter as tk
+import math
 
-class QuadraticCalculator(tk.Tk):
+
+class BaseCalculator(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Quadratic Equation Solver")
-        self.geometry("400x300")
-        self.configure(bg='#34495E')
-
-        # Equation display field
+        self.expression = ""
         self.equation = tk.StringVar()
-        entry = tk.Entry(self, textvariable=self.equation, font=('Arial', 18), bg='white', fg='black', justify='center')
-        entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10, sticky="nsew")
+        self.create_widgets()
+        self.create_base_buttons()
 
-        # Input fields for a, b, and c
-        self.a_entry = tk.Entry(self, font=('Arial', 14))
-        self.a_entry.grid(row=1, column=0, padx=5, pady=5)
-        self.a_entry.insert(0, "a")
+    def create_widgets(self):
+        # Improved entry field with styling
+        entry = tk.Entry(self,
+                         textvariable=self.equation,
+                         font=('Arial', 20),
+                         bg='white',
+                         fg='black',
+                         borderwidth=2,
+                         relief='sunken',
+                         justify='right')
+        entry.grid(row=0, column=0, columnspan=5, padx=10, pady=10, sticky='nsew')
 
-        self.b_entry = tk.Entry(self, font=('Arial', 14))
-        self.b_entry.grid(row=1, column=1, padx=5, pady=5)
-        self.b_entry.insert(0, "b")
+    def on_button_click(self, char):
+        if char == '=':
+            self.calculate()
+        elif char == 'Clear':
+            self.clear()
+        else:
+            self.expression += str(char)
+            self.equation.set(self.expression)
 
-        self.c_entry = tk.Entry(self, font=('Arial', 14))
-        self.c_entry.grid(row=1, column=2, padx=5, pady=5)
-        self.c_entry.insert(0, "c")
+    def calculate(self):
+        try:
+            result = str(eval(self.expression))
+            self.equation.set(result)
+            self.expression = ""
+        except:
+            self.equation.set(" error ")
+            self.expression = ""
 
-    # Solve button
-    quad_button = tk.Button(self, text="Solve Quadratic", font=('Arial', 14), bg='#FFA500', fg="white", command=self.solve_quadratic)
-    quad_button.grid(row=1, column=3, padx=5, pady=5, sticky="nsew")
+    def clear(self):
+        self.expression = ""
+        self.equation.set("")
+
+    def create_base_buttons(self):
+        base_buttons = [
+            ('7', 2, 0), ('8', 2, 1), ('9', 2, 2), ('/', 2, 3),
+            ('4', 3, 0), ('5', 3, 1), ('6', 3, 2), ('-', 3, 3),
+            ('1', 4, 0), ('2', 4, 1), ('3', 4, 2), ('+', 4, 3),
+            ('0', 5, 0), ('.', 5, 1), ('=', 5, 2), ('Clear', 5, 3)
+        ]
+
+        for (text, row, col) in base_buttons:
+            # Different styling for operators vs numbers
+            bg_color = '#FF6B6B' if text in '+-*/=.' else '#4ECDC4'
+            fg_color = 'white' if text in '+-*/=.' else 'black'
+
+            action = lambda x=text: self.on_button_click(x)
+            button = tk.Button(self,
+                               text=text,
+                               font=('Arial', 14),
+                               fg=fg_color,
+                               bg=bg_color,
+                               command=action,
+                               borderwidth=1,
+                               relief='raised')
+            button.grid(row=row, column=col, padx=2, pady=2, sticky='nsew')
+
+        # Configure grid weights for responsive resizing
+        for i in range(5):
+            self.grid_columnconfigure(i, weight=1)
+        for i in range(6):
+            self.grid_rowconfigure(i, weight=1)
+
+
+class StandardCalculator(BaseCalculator):
+    def __init__(self):
+        super().__init__()
+        self.title("Standard Calculator")
+        self.geometry("300x400")
+        self.configure(bg='#2D2D2D')
+        # Ensure minimum size
+        self.minsize(250, 350)
+
+
+class ScientificCalculator(BaseCalculator):
+    def __init__(self):
+        super().__init__()
+        self.title("Scientific Calculator")
+        self.geometry("400x500")
+        self.configure(bg='#34495E')
+        self.create_scientific_buttons()
+        self.minsize(350, 450)
+
+    def calculate(self):
+        try:
+            self.expression = self.expression.replace('^', '**')
+            # Check if quadratic equation solving is requested
+            if self.expression.startswith('quad('):
+                result = self.solve_quadratic(self.expression)
+            else:
+                result = str(self.evaluate_expression(self.expression))
+            self.equation.set(result)
+            self.expression = result
+        except:
+            self.equation.set(" error ")
+            self.expression = ""
+
+    def evaluate_expression(self, expr):
+        expr = expr.replace("sin", "self.my_sin")
+        expr = expr.replace("cos", "self.my_cos")
+        expr = expr.replace("tan", "self.my_tan")
+        expr = expr.replace("sqrt", "self.my_sqrt")
+
+        return eval(expr, {"self": self})  #
+
+    def create_scientific_buttons(self):
+        scientific_buttons = [
+            ('sin', 1, 0), ('cos', 1, 1), ('tan', 1, 2), ('log', 1, 3), ('ln', 1, 4),
+            ('sqrt', 4, 4), ('^', 3, 4), ('(', 2, 4), (')', 5, 4),
+            ('quad', 2, 5), (',', 3, 5)  # Added comma button
+        ]
+
+        # Configure grid weights for 6 columns
+        for i in range(6):
+            self.grid_columnconfigure(i, weight=1)
+
+        for (text, row, col) in scientific_buttons:
+            action = lambda x=text: self.on_button_click(x)
+            button = tk.Button(self,
+                             text=text,
+                             font=('Arial', 14),
+                             fg='white',
+                             bg='#45B7D1',
+                             command=action,
+                             borderwidth=1,
+                             relief='raised')
+            button.grid(row=row, column=col, padx=2, pady=2, sticky='nsew')
+
+    def my_sin(self, x):
+        x = self.to_radians(x)
+        sin_x = 0
+        for i in range(10):
+            sin_x += ((-1) ** i * (x ** (2 * i + 1))) / self.factorial(2 * i + 1)
+        return sin_x
+
+    def my_cos(self, x):
+        x = self.to_radians(x)
+        cos_x = 0
+        for i in range(10):
+            cos_x += ((-1) ** i * (x ** (2 * i))) / self.factorial(2 * i)
+        return cos_x
+
+    def my_tan(self, x):
+        sin_x = self.my_sin(x)
+        cos_x = self.my_cos(x)
+        return sin_x / cos_x if cos_x != 0 else "undefined"
 
     def my_sqrt(self, x):
-    # """Manual square root calculation using Newton's method."""
-    
-        if x < 0:
-            return None # No real solutions
-        guess = x / 2.0
-        for _ in range(10): # More iterations improve accuracy
-            guess = (guess + x / guess) / 2.0
-            return guess
+        guess = x / 2
+        for _ in range(10):
+            guess = (guess + x / guess) / 2  # Newton’s method
+        return guess
 
-    def solve_quadratic(self):
-        # """Solves the quadratic equation ax² + bx + c = 0"""
-        a = float(self.a_entry.get())
-        b = float(self.b_entry.get())
-        c = float(self.c_entry.get())
+    def to_radians(self, degrees):
+        return degrees * 3.141592653589793 / 180
 
-        if a == 0:
-            self.equation.set("Not a quadratic equation")
-            return
+    def factorial(self, n):
+        if n == 0 or n == 1:
+            return 1
+        result = 1
+        for i in range(2, n + 1):
+            result *= i
+        return result
 
-        D = b**2 - 4*a*c # Discriminant
+    def solve_quadratic(self, expr):
+        try:
+            coeffs = expr[5:-1].split(',')
+            a = float(eval(coeffs[0].strip()))
+            b = float(eval(coeffs[1].strip()))
+            c = float(eval(coeffs[2].strip()))
 
-        if D < 0:
-            self.equation.set("No Real Solutions")
-            return
+            # Calculate discriminant
+            discriminant = b ** 2 - 4 * a * c
 
-        sqrt_D = self.my_sqrt(D)
-        x1 = (-b + sqrt_D) / (2 * a)
-        x2 = (-b - sqrt_D) / (2 * a)
+            if a == 0:
+                return "Not a quadratic equation (a=0)"
 
-        if D == 0:
-            self.equation.set(f"x = {x1:.3f}")
-        else:
-             self.equation.set(f"x = {x1:.3f}")
-                
+            # Calculate roots based on discriminant
+            if discriminant > 0:
+                root1 = (-b + self.my_sqrt(discriminant)) / (2 * a)
+                root2 = (-b - self.my_sqrt(discriminant)) / (2 * a)
+                return f"x₁={root1:.4f}, x₂={root2:.4f}"
+            elif discriminant == 0:
+                root = -b / (2 * a)
+                return f"x={root:.4f}"
+            else:
+                real_part = -b / (2 * a)
+                imag_part = self.my_sqrt(-discriminant) / (2 * a)
+                return f"x₁={real_part:.4f}+{imag_part:.4f}i, x₂={real_part:.4f}-{imag_part:.4f}i"
+        except:
+            return "Invalid quadratic format. Use: quad(a,b,c)"
 
- 
 
 if __name__ == "__main__":
-    app = QuadraticCalculator()
+    # app = StandardCalculator()
+    app = ScientificCalculator()
     app.mainloop()
