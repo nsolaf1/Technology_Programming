@@ -1,8 +1,8 @@
 # Technology Programming - Syllabus Overview
 
 ##[Module 2 QUIZ](https://docs.google.com/forms/d/e/1FAIpQLSdoSH8yEX3vySPq_D2ykJ2MNr2f1hId4FGuKhDzu8Q_t1dMLw/viewform?usp=dialog) 
-<!-- 
-##[Module 1 QUIZ](https://docs.google.com/forms/d/e/1FAIpQLSeEV1FrzqlDBIrYZurczzqXYBth6B1zU5Lf9xQG7qncCr5GIw/viewform?usp=dialog)  -->
+
+##[Module 1 QUIZ](https://docs.google.com/forms/d/e/1FAIpQLSeEV1FrzqlDBIrYZurczzqXYBth6B1zU5Lf9xQG7qncCr5GIw/viewform?usp=dialog) 
 
 ##[Google MEETS](https://teams.live.com/meet/943102024944?p=Oadmco32M0MkIcrC8V)
 
