@@ -48,15 +48,37 @@ studentsList = [
     {"name": "Charlie", "subjects": ("Math", "Physics", "Chemistry"), "scores": {"Math": 90, "Physics": 95, "Chemistry": 85}},
 ]
 
-def display_students(students):
-    for student in students:
-        print(f"Name: {student["name"]}")
-        print("Subjects: ")
+# def display_students(students):
+#     for student in students:
+#         print(f"Name: {student["name"]}")
+#         print("Subjects: ")
         
-        for subject in student["subjects"]:
-            print(subject)
+#         for subject in student["subjects"]:
+#             print(subject)
         
-        print()
+#         print()
         
-display_students(studentsList)
+# display_students(studentsList)
+
+
+
+library_books = {
+    "B001": {"title": "Основы Python", "borrower": "Алиса", "due_date": -5, "fine_rate": 0.50},
+    "B002": {"title": "Наука о данных", "borrower": "Боб", "due_date": 3, "fine_rate": 0.75},
+    "B003": {"title": "Введение в ИИ", "borrower": None, "due_date": 0, "fine_rate": 0.25},
+    "B004": {"title": "Алгоритмы", "borrower": "Алиса", "due_date": 2, "fine_rate": 1.00}
+}
+
+def borrowed_booked(books):
+    __init__ 
+    for book in books.values():
+        print(book['title'])
+        # if book["borrower"] and book["due_date"] < 0:
+        #     print(book["borrower"])
+            
+        
+    
+
+borrowed_booked(library_books)
+
 
